@@ -1,204 +1,579 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
-
   Mic,
-  FileText,
-  Megaphone,
-  PlaySquare,
+  Headphones,
+  Newspaper,
+  Radio,
+  Play,
   Image,
-  ExternalLink,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
+  ExternalLink,
 } from "lucide-react";
+import bg7 from "../assets/bg 7.png";
+import image from "../assets/media1.png";
 
-// import mediaBg from "../assets/media-bg.png";
-// import media1 from "../assets/media-1.png";
-// import media2 from "../assets/media-2.png";
-// import media3 from "../assets/media-3.png";
-// import media4 from "../assets/media-4.png";
-// import media5 from "../assets/media-5.png";
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, delay: i * 0.07 },
+  }),
+};
+
+const tabs = [
+  { label: "All Media", icon: <span className="text-[11px]">⊙</span> },
+  { label: "Interviews", icon: <Mic size={14} /> },
+  { label: "Talks & Podcasts", icon: <Headphones size={14} /> },
+  { label: "News & Features", icon: <Newspaper size={14} /> },
+  { label: "Press Releases", icon: <Radio size={14} /> },
+  { label: "Videos", icon: <Play size={14} /> },
+  { label: "Gallery", icon: <Image size={14} /> },
+];
+
+const featured = [
+  {
+    image,
+    type: "Interview",
+    bg: "from-blue-900 to-blue-700",
+    date: "May 15, 2024",
+    title: "Interview on AI & the Future of Smart Cities",
+    source: "elets TV",
+    sourceColor: "#E74C3C",
+  },
+  {
+    image,
+    type: "Podcast",
+    bg: "from-gray-900 to-gray-700",
+    date: "Apr 22, 2024",
+    title: "Podcast: Research, Innovation & Real-World Impact",
+    source: "The Research Matters",
+    sourceColor: "#C8922A",
+  },
+  {
+    image,
+    type: "Talk",
+    bg: "from-indigo-900 to-indigo-700",
+    date: "Mar 10, 2024",
+    title: "Keynote Talk at International Conference on Data Engineering",
+    source: "ICDE 2024",
+    sourceColor: "#3498DB",
+  },
+  {
+    image,
+    type: "Feature",
+    bg: "from-amber-800 to-amber-600",
+    date: "Feb 5, 2024",
+    title: "Top 2% Scientist in the World: Elsevier Stanford List 2024",
+    source: "Times of India (Education Times)",
+    sourceColor: "#E67E22",
+  },
+];
+
+const latest = [
+  {
+    image,
+    title: "Expert Talk on Cybersecurity & Privacy in the Digital Era",
+    desc: "Discussion on emerging trends in cybersecurity, data privacy, and building resilient digital systems.",
+    type: "Talk",
+    date: "Jan 28, 2024",
+  },
+  {
+    image,
+    title: "Research Collaboration is the Key to Solving Global Challenges",
+    desc: "Featured in SiliconIndia Magazine discussing the importance of interdisciplinary research and global collaboration.",
+    type: "Feature",
+    date: "Jan 15, 2024",
+  },
+  {
+    image,
+    title: "Podcast: The Journey of a Researcher & Entrepreneur",
+    desc: "A candid conversation about research journey, entrepreneurship, and future aspirations.",
+    type: "Podcast",
+    date: "Dec 30, 2023",
+  },
+  {
+    image,
+    title: "Interview: Innovation, Impact & the Road Ahead",
+    desc: "Sharing perspectives on innovation ecosystems and the role of research in societal transformation.",
+    type: "Interview",
+    date: "Dec 12, 2023",
+  },
+  {
+    image,
+    title: "Invited Talk on Machine Learning Applications",
+    desc: "Delivered an invited talk on advanced machine learning techniques and their real-world applications.",
+    type: "Talk",
+    date: "Nov 25, 2023",
+  },
+];
+
+const typeColors = {
+  Talk: { bg: "bg-blue-50", text: "text-blue-600", border: "border-blue-200" },
+  Feature: {
+    bg: "bg-green-50",
+    text: "text-green-600",
+    border: "border-green-200",
+  },
+  Podcast: {
+    bg: "bg-purple-50",
+    text: "text-purple-600",
+    border: "border-purple-200",
+  },
+  Interview: {
+    bg: "bg-[#FDF8F0]",
+    text: "text-[#C8922A]",
+    border: "border-[#C8922A]/30",
+  },
+};
+
+const gallery = [
+  { image, alt: "Conference Speech" },
+  { image, alt: "Interview Session" },
+  { image, alt: "Conference Hall" },
+  { image, alt: "Camera Recording" },
+  { image, alt: "Keynote Talk" },
+];
 
 export default function Media() {
-  const tabs = [
-    [ "All Media"],
-    [Mic, "Interviews"],
-    [Mic, "Talks & Podcasts"],
-    [FileText, "News & Features"],
-    [Megaphone, "Press Releases"],
-    [PlaySquare, "Videos"],
-    [Image, "Gallery"],
-  ];
-
-  const featured = [
-    // [media1, "Interview", "May 15, 2024", "Interview on AI & the Future of Smart Cities", "elets TV"],
-    // [media2, "Podcast", "Apr 22, 2024", "Podcast: Research, Innovation & Real-World Impact", "The Research Matters"],
-    // [media3, "Talk", "Mar 10, 2024", "Keynote Talk at International Conference on Data Engineering", "ICDE 2024"],
-    // [media4, "Feature", "Feb 5, 2024", "Top 2% Scientist in the World: Elsevier Stanford List 2024", "Times of India"],
-  ];
-
-  const latest = [
-    [ "Expert Talk on Cybersecurity & Privacy in the Digital Era", "Discussion on emerging trends in cybersecurity, data privacy, and building resilient digital systems.", "Talk", "Jan 28, 2024"],
-    [ "Research Collaboration is the Key to Solving Global Challenges", "Featured in SiliconIndia Magazine discussing the importance of interdisciplinary research and global collaboration.", "Feature", "Jan 15, 2024"],
-    [ "Podcast: The Journey of a Researcher & Entrepreneur", "A candid conversation about research journey, entrepreneurship, and future aspirations.", "Podcast", "Dec 30, 2023"],
-    [ "Interview: Innovation, Impact & the Road Ahead", "Sharing perspectives on innovation ecosystems and the role of research in societal transformation.", "Interview", "Dec 12, 2023"],
-    [ "Invited Talk on Machine Learning Applications", "Delivered an invited talk on advanced machine learning techniques and their real-world applications.", "Talk", "Nov 25, 2023"],
-  ];
-
-//   const gallery = [media3, media1, media5, media2, media3];
+  const [activeTab, setActiveTab] = useState("All Media");
 
   return (
-    <section className="bg-[#fbfaf8] text-[#171717]">
-      {/* HERO */}
-      <div
-        className="h-[305px] bg-cover bg-center flex items-center"
-        // style={{ backgroundImage: `url(${mediaBg})` }}
-      >
-        <div className="max-w-[1160px] mx-auto px-6 w-full">
-          <div className="max-w-[430px]">
-            <p className="text-[11px] uppercase tracking-[1.7px] font-bold text-[#b87518] mb-4">
-              In The Media
-            </p>
-
-            <h1 className="font-serif text-[42px] md:text-[50px] leading-[1.08] font-medium">
-              Sharing Ideas. <br />
-              Inspiring Change.
-            </h1>
-
-            <div className="w-[32px] h-[2px] bg-[#b87518] my-5" />
-
-            <p className="text-[13px] leading-[1.85] text-[#444]">
-              Explore my interviews, talks, features, and press coverage across
-              various platforms where I share insights on research, innovation,
-              and impact.
-            </p>
-          </div>
+    <>
+      {/* Hero */}
+      <section className="relative min-h-[300px] lg:min-h-[330px] bg-[#FAF8F4] overflow-hidden">
+        <div className="absolute right-0 top-0 h-full" style={{ width: "58%" }}>
+          <img
+            src={bg7}
+            alt=""
+            className="h-full w-full object-cover object-right"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `
+      linear-gradient(
+        90deg,
+        #FAF8F4 0%,
+        #FAF8F4 12%,
+        rgba(250,248,244,0.95) 24%,
+        rgba(250,248,244,0.65) 38%,
+        rgba(250,248,244,0.25) 52%,
+        transparent 68%
+      )
+    `,
+            }}
+          />
         </div>
-      </div>
-
-      {/* TABS */}
-      <div className="bg-white border-b border-[#eadfd3]">
-        <div className="max-w-[1160px] mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7">
-          {tabs.map(([Icon, label], index) => (
-            <button
-              key={label}
-              className={`h-[72px] flex flex-col items-center justify-center gap-2 text-[11px] font-semibold border-b-2 transition ${
-                index === 0
-                  ? "text-[#b87518] border-[#b87518]"
-                  : "text-[#333] border-transparent hover:text-[#b87518]"
-              }`}
-            >
-              <Icon size={17} />
-              {label}
-            </button>
-          ))}
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-[36px] lg:py-[48px]">
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="
+text-[#C8922A]
+text-[11px]
+font-extrabold
+tracking-[0.18em]
+uppercase
+mb-5
+"
+          >
+            In The Media
+          </motion.p>
+          <motion.h1
+            initial="hidden"
+            animate="visible"
+            custom={1}
+            variants={fadeUp}
+            className="font-serif text-[#161616] xl:text-[42px] lg:text-[40px] md:text-[32px] sm:text-[30px] text-[24px] font-medium leading-[1.08] tracking-[-0.5px] mb-4"
+          >
+            Sharing Ideas.
+            <br />
+            Inspiring Change.
+          </motion.h1>
+          <div className="w-12 h-0.5 bg-[#C8922A] mb-5" />
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            custom={2}
+            variants={fadeUp}
+            className="
+text-[#374151]
+text-[14px]
+leading-[1.9]
+font-medium
+max-w-[430px]
+"
+          >
+            Explore my interviews, talks, features, and press coverage across
+            various platforms where I share insights on research, innovation,
+            and impact.
+          </motion.p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-[1160px] mx-auto px-6 py-7">
-        {/* FEATURED */}
-        <div className="flex justify-between items-center mb-5">
-          <h2 className="font-serif text-[24px]">Featured Media</h2>
-          <button className="text-[#b87518] text-[12px] font-bold flex items-center gap-2">
-            View All <ArrowRight size={13} />
-          </button>
-        </div>
+      {/* Tabs */}
+      <section className="bg-white border-b border-[#e8e4dd] sticky top-16 z-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between overflow-x-auto no-scrollbar">
+            {tabs.map((tab) => (
+              <button
+                key={tab.label}
+                onClick={() => setActiveTab(tab.label)}
+                className={`
+            relative
+            min-w-[135px]
+            h-[74px]
+            px-4
+            pt-3
+            pb-2
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-          {featured.map(([img, tag, date, title, source]) => (
-            <div
-              key={title}
-              className="bg-white border border-[#eadfd3] rounded-[6px] overflow-hidden hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative h-[150px] overflow-hidden">
-                <img src={img} alt={title} className="w-full h-full object-cover" />
-                <span className="absolute left-3 bottom-3 bg-white/90 text-[#555] text-[10px] px-2 py-1 rounded">
-                  {tag}
+            flex
+            flex-col
+            items-center
+            justify-center
+            gap-2
+
+            text-[12px]
+            font-semibold
+            whitespace-nowrap
+
+            transition-all duration-300
+
+            ${
+              activeTab === tab.label
+                ? ""
+                : "text-[#374151] hover:text-[#C8922A] "
+            }
+          `}
+              >
+                <span
+                  className={`
+              flex items-center justify-center
+              transition-all duration-300
+
+              ${
+                activeTab === tab.label
+                  ? "text-[#C8922A] scale-110"
+                  : "text-[#4B5563]"
+              }
+
+              [&_svg]:w-[24px]
+              [&_svg]:h-[24px]
+              [&_svg]:stroke-[1.7]
+            `}
+                >
+                  {tab.icon}
                 </span>
-              </div>
 
-              <div className="p-4">
-                <p className="text-[11px] text-[#777] mb-2">{date}</p>
-                <h3 className="font-serif text-[16px] leading-[1.35] min-h-[64px]">
-                  {title}
-                </h3>
+                <span>{tab.label}</span>
 
-                <div className="flex justify-between items-center mt-4">
-                  <p className="text-[#b87518] text-[11px] font-bold">{source}</p>
-                  <ExternalLink size={13} className="text-[#555]" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* LATEST */}
-        <div className="flex justify-between items-center mb-5">
-          <h2 className="font-serif text-[24px]">Latest Media</h2>
-          <button className="text-[#b87518] text-[12px] font-bold flex items-center gap-2">
-            View All <ArrowRight size={13} />
-          </button>
-        </div>
-
-        <div className="bg-white border border-[#eadfd3] rounded-[6px] overflow-hidden mb-10">
-          {latest.map(([img, title, desc, tag, date]) => (
-            <div
-              key={title}
-              className="grid grid-cols-[95px_1fr_auto_auto] max-md:grid-cols-[75px_1fr] gap-4 items-center p-4 border-b border-[#eadfd3] last:border-b-0 hover:bg-[#fffaf4] transition"
-            >
-              <img
-                src={img}
-                alt={title}
-                className="w-[95px] h-[58px] max-md:w-[75px] max-md:h-[52px] object-cover rounded-[4px]"
-              />
-
-              <div>
-                <h3 className="text-[14px] font-bold leading-[1.35]">{title}</h3>
-                <p className="text-[11px] text-[#555] leading-[1.5] mt-1 max-w-[620px]">
-                  {desc}
-                </p>
-              </div>
-
-              <span className="max-md:hidden bg-[#eef5ff] text-[#3973b7] text-[10px] px-3 py-1 rounded">
-                {tag}
-              </span>
-
-              <div className="max-md:hidden flex items-center gap-5">
-                <span className="text-[11px] text-[#555]">{date}</span>
-                <ExternalLink size={13} className="text-[#555]" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* GALLERY */}
-        <div className="flex justify-between items-center mb-5">
-          <h2 className="font-serif text-[24px]">Media Gallery</h2>
-          <button className="text-[#b87518] text-[12px] font-bold flex items-center gap-2">
-            View All <ArrowRight size={13} />
-          </button>
-        </div>
-
-        <div className="relative">
-          <button className="absolute left-[-18px] top-1/2 -translate-y-1/2 z-10 w-[36px] h-[36px] bg-white shadow rounded-full flex items-center justify-center">
-            <ChevronLeft size={18} />
-          </button>
-
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {gallery.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt="Gallery"
-                className="w-full h-[135px] object-cover rounded-[6px] hover:scale-[1.03] transition"
-              />
+                {/* {activeTab === tab.label && (
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[105px] h-[2px] bg-[#C8922A]" />
+          )} */}
+              </button>
             ))}
           </div>
-
-          <button className="absolute right-[-18px] top-1/2 -translate-y-1/2 z-10 w-[36px] h-[36px] bg-white shadow rounded-full flex items-center justify-center">
-            <ChevronRight size={18} />
-          </button>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+          {/* Featured Media */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-serif text-[21px] font-medium text-[#1A1A1A]">
+                Featured Media
+              </h2>
+
+              <a
+                href="#"
+                className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+              >
+                View All <ArrowRight size={12} />
+              </a>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {featured.map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i * 0.08}
+                  variants={fadeUp}
+                  className="
+          bg-white
+          rounded-[6px]
+          overflow-hidden
+          border border-[#e8e3dc]
+          shadow-[0_2px_8px_rgba(0,0,0,0.04)]
+          hover:shadow-[0_8px_22px_rgba(200,146,42,0.14)]
+          transition-all duration-300
+          cursor-pointer
+          group
+        "
+                >
+                  <div className="relative h-[145px] overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="
+              w-full
+              h-full
+              object-cover
+              transition-transform duration-500
+              group-hover:scale-105
+            "
+                    />
+
+                    <span
+                      className="
+              absolute
+              left-3
+              bottom-3
+              bg-white/85
+              text-[#374151]
+              text-[10px]
+              font-semibold
+              px-2
+              py-[3px]
+              rounded-[2px]
+            "
+                    >
+                      {item.type}
+                    </span>
+                  </div>
+
+                  <div className="px-4 pt-3 pb-4">
+                    <p className="text-[11px] text-[#8a8f98] mb-2">
+                      {item.date}
+                    </p>
+
+                    <h4
+                      className="
+              text-[14px]
+              font-serif
+              font-medium
+              text-[#1A1A1A]
+              leading-[1.35]
+              min-h-[58px]
+              mb-3
+              group-hover:text-[#C8922A]
+              transition-colors
+            "
+                    >
+                      {item.title}
+                    </h4>
+
+                    <div className="flex items-center justify-between">
+                      <span
+                        className="text-[11px] font-semibold"
+                        style={{ color: item.sourceColor }}
+                      >
+                        {item.source}
+                      </span>
+
+                      <ExternalLink
+                        size={13}
+                        className="text-[#6B7280] group-hover:text-[#C8922A] transition-colors"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Latest Media */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-serif text-[22px] font-medium text-[#1A1A1A]">
+                Latest Media
+              </h2>
+
+              <a
+                href="#"
+                className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+              >
+                View All <ArrowRight size={12} />
+              </a>
+            </div>
+
+            <div className="space-y-0">
+              {latest.map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i * 0.07}
+                  variants={fadeUp}
+                  className="
+          grid
+          grid-cols-[170px_1fr_90px_120px_24px]
+          gap-5
+          items-center
+          py-3
+          border-b border-[#e8e4dd]
+        "
+                >
+                  <div className="w-[150px] h-[70px] rounded-[5px] overflow-hidden bg-gray-100">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <div className="min-w-0">
+                    <h4 className="font-serif text-[15px] font-medium text-[#1A1A1A] leading-[1.35] mb-1">
+                      {item.title}
+                    </h4>
+
+                    <p className="text-[12.5px] text-[#374151] leading-[1.55] max-w-[560px]">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  <span
+                    className={`
+            text-[11px]
+            font-medium
+            px-4
+            py-[4px]
+            rounded-[5px]
+            text-center
+            ${(typeColors[item.type] || typeColors.Talk).bg}
+            ${(typeColors[item.type] || typeColors.Talk).text}
+          `}
+                  >
+                    {item.type}
+                  </span>
+
+                  <span className="text-[12px] text-[#374151]">
+                    {item.date}
+                  </span>
+
+                  <ExternalLink
+                    size={14}
+                    className="text-[#4B5563] hover:text-[#C8922A] cursor-pointer"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+{/* Media Gallery */}
+<div>
+  <div className="flex items-center justify-between mb-5">
+    <h2 className="font-serif text-[24px] font-medium text-[#1A1A1A]">
+      Media Gallery
+    </h2>
+
+    <a
+      href="#"
+      className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+    >
+      View All <ArrowRight size={12} />
+    </a>
+  </div>
+
+  <div className="relative">
+    {/* Left Arrow */}
+    <button
+      type="button"
+      className="
+        absolute
+        left-[-24px]
+        top-1/2
+        -translate-y-1/2
+        z-10
+
+        w-[42px]
+        h-[42px]
+        rounded-full
+
+        bg-white
+        shadow-[0_4px_16px_rgba(0,0,0,0.14)]
+
+        flex
+        items-center
+        justify-center
+
+        text-[#6B7280]
+        hover:text-[#C8922A]
+        transition-all
+      "
+    >
+      ‹
+    </button>
+
+    <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+      {gallery.map((item, i) => (
+        <div
+          key={i}
+          className="
+            w-[220px]
+            h-[130px]
+            rounded-[6px]
+            flex-shrink-0
+            overflow-hidden
+            bg-gray-100
+            cursor-pointer
+            shadow-[0_3px_10px_rgba(0,0,0,0.08)]
+            hover:scale-[1.02]
+            transition-transform
+          "
+        >
+          <img
+            src={item.image}
+            alt={item.alt || `Gallery ${i + 1}`}
+            className="
+              w-full
+              h-full
+              object-cover
+            "
+          />
+        </div>
+      ))}
+    </div>
+
+    {/* Right Arrow */}
+    <button
+      type="button"
+      className="
+        absolute
+        right-[-24px]
+        top-1/2
+        -translate-y-1/2
+        z-10
+
+        w-[42px]
+        h-[42px]
+        rounded-full
+
+        bg-white
+        shadow-[0_4px_16px_rgba(0,0,0,0.14)]
+
+        flex
+        items-center
+        justify-center
+
+        text-[#6B7280]
+        hover:text-[#C8922A]
+        transition-all
+      "
+    >
+      ›
+    </button>
+  </div>
+</div>
+        </div>
+      </section>
+    </>
   );
 }
