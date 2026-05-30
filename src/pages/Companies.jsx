@@ -1,10 +1,9 @@
 import { motion } from 'framer-motion';
-import {  ExternalLink,} from 'lucide-react';
-// import { Link } from 'react-router-dom';
-import bg6 from '../assets/combg.jpeg';
-import mriLogo from "../assets/mriLogo.png";
-import rcLogo from "../assets/rc.png";
-import siareLogo from "../assets/Slogo.png";
+import { ExternalLink } from 'lucide-react';
+import bg6 from '../assets/images/combg.jpeg';
+import mriLogo from "../assets/images/mriLogo.png";
+import rcLogo from "../assets/images/rc.png";
+import siareLogo from "../assets/images/Slogo.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -96,13 +95,11 @@ function IconEye() {
     </svg>
   );
 }
-
-
 const companies = [
   {
     id: 'mri',
     fullName: 'MRI India',
-    subtitle: '(Multidisciplinary Institute of India)',
+    subtitle: 'Multidisciplinary Institute of India',
     subtitleColor: '#C8922A',
     sub: 'Mathematical Research Institute of India',
     desc: 'MRI India is a research-driven institute dedicated to advancing mathematical sciences and their real-world applications. We focus on high-quality research, capacity building, and creating knowledge-based solutions for complex problems.',
@@ -114,11 +111,11 @@ const companies = [
       { icon: <IconHandshake />, title: 'Collaborations', desc: 'Partnering with institutions and industry globally.' },
       { icon: <IconGlobe />, title: 'Impact Driven', desc: 'Applying mathematical excellence for societal benefit.' },
     ],
-    // Logo: MriLogo,
+   
   },
   {
     id: 'rc',
-    fullName: 'Researcher Connection',
+    fullName: 'Researcher Connect',
     subtitle: 'Innovation and Impact Private Limited',
     subtitleColor: '#C8922A',
     sub: '',
@@ -131,12 +128,12 @@ const companies = [
       { icon: <IconChart />, title: 'Impact Projects', desc: 'Executing projects that create real-world impact.' },
       { icon: <IconTarget />, title: 'Industry Collaboration', desc: 'Working with industry to solve critical challenges.' },
     ],
-    // Logo: RcLogo,
+   
   },
   {
     id: 'siare',
-    fullName: 'SIARE Society',
-    subtitle: '',
+    fullName: 'SIARE',
+    subtitle: 'Society of Integrated Academic Research and Education',
     subtitleColor: '#C8922A',
     sub: '',
     desc: 'SIARE Society is a non-profit organization committed to social development, education, and empowerment initiatives. We work towards building an inclusive society through various educational, environmental, and community programs.',
@@ -148,28 +145,26 @@ const companies = [
       { icon: <IconHeart />, title: 'Community Welfare', desc: 'Empowering communities through various programs.' },
       { icon: <IconTarget />, title: 'Social Impact', desc: 'Creating positive and lasting social change.' },
     ],
-    // Logo: SiareLogo,
+   
   },
 ];
-
-
 
 export default function Companies() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#FAF8F4] overflow-hidden">
+      <section className="relative bg-[#FAF8F4] overflow-hidden min-h-[360px] sm:min-h-[350px]">
         {/* Right image */}
-        <div className="absolute right-0 top-0 h-full" style={{ width: '52%' }}>
-          <img src={bg6} alt="" className="h-[350px] w-full object-cover object-center" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, #FAF8F4 0%, #FAF8F4 8%, rgba(250,248,244,0.55) 38%, transparent 65%)' }} />
+        <div className="absolute right-0 top-0 h-full w-full md:w-[52%] opacity-25 md:opacity-100">
+          <img src={bg6} alt="" className="h-full min-h-[360px] sm:min-h-[350px] w-full object-cover object-center" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, #FAF8F4 0%, #FAF8F4 20%, rgba(250,248,244,0.75) 45%, transparent 75%)' }} />
         </div>
 
         {/* Left content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-20 py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 sm:py-16">
           <motion.p
             initial="hidden" animate="visible" variants={fadeUp}
-            className="text-[#C8922A] text-[11px] font-semibold tracking-[0.2em] uppercase mb-5"
+            className="text-[#C8922A] text-[10px] font-bold tracking-[0.2em] uppercase mb-5"
           >
             MY COMPANIES
           </motion.p>
@@ -183,7 +178,7 @@ export default function Companies() {
           <div className="w-12 h-0.5 bg-[#C8922A] mb-6" />
           <motion.p
             initial="hidden" animate="visible" custom={2} variants={fadeUp}
-            className="text-[#6B7280] text-[13.5px] leading-[1.8]"
+            className="text-[#6B7280] text-[14px] sm:text-[16px] leading-[1.8]"
             style={{ maxWidth: 380 }}
           >
             Through innovation, research, and collaboration, my organizations aim to create meaningful impact in academia, industry, and society.
@@ -192,8 +187,8 @@ export default function Companies() {
       </section>
 
 {/* ── Company Cards ── */}
-<section className="py-8 bg-white">
-  <div className="max-w-[1120px] mx-auto px-4 space-y-6">
+<section className="py-8 sm:py-10 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 space-y-5 sm:space-y-6">
     {companies.map((c, i) => (
       <motion.div
         key={c.id}
@@ -202,46 +197,46 @@ export default function Companies() {
         viewport={{ once: true }}
         custom={i * 0.1}
         variants={fadeUp}
-        className="border border-[#e6e2dc] rounded-[4px] bg-white"
+        className="group border border-[#e6e2dc] rounded-[4px] bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:border-[#C8922A]/50"
       >
-        <div className="grid lg:grid-cols-[190px_1fr_230px] min-h-[205px]">
+        <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] lg:grid-cols-[190px_1fr_230px] min-h-[205px]">
           {/* LEFT LOGO */}
-          <div className="flex flex-col items-center justify-center text-center px-8 py-8">
+          <div className="flex flex-col items-center justify-center text-center px-6 sm:px-8 py-6 sm:py-8 ">
             <img
               src={c.id === "mri" ? mriLogo : c.id === "rc" ? rcLogo : siareLogo}
               alt={c.fullName}
-              className="max-h-[78px] max-w-[150px] w-auto object-contain"
+              className="max-h-[70px] sm:max-h-[78px] max-w-[140px] sm:max-w-[150px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </div>
 
           {/* CENTER */}
-          <div className="px-3 lg:px-0 py-8">
-            <h3 className="font-serif text-[19px] font-semibold text-[#1A1A1A] leading-tight">
+          <div className="px-5 sm:px-6 md:px-6 lg:px-0 py-6 sm:py-8">
+            <h3 className="font-serif text-[20px] sm:text-[21px] font-semibold text-[#1A1A1A] leading-tight transition-colors duration-300 group-hover:text-[#C8922A]">
               {c.fullName}
             </h3>
 
             {c.subtitle && (
-              <p className="text-[13px] font-semibold mb-3 text-[#C8922A]">
+              <p className="text-[14px] sm:text-[16px] font-semibold mb-3 text-[#C8922A]">
                 {c.subtitle}
               </p>
             )}
 
-            <p className="text-[11.5px] text-[#111827] leading-[1.55] max-w-[520px] mb-7">
+            <p className="text-[13px] sm:text-[14px] text-[#111827] leading-[1.65] max-w-[620px] lg:max-w-[520px] mb-6 sm:mb-7">
               {c.desc}
             </p>
 
-            <div className="grid grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
               {c.features.map((f, j) => (
-                <div key={j} className="text-center">
+                <div key={j} className="text-center rounded-md px-3 py-3 transition-all duration-300 hover:bg-[#FAF8F4] hover:-translate-y-1">
                   <div className="flex items-center justify-center h-[30px] mb-2">
                     {f.icon}
                   </div>
 
-                  <p className="text-[10.5px] font-bold text-[#1A1A1A] leading-tight">
+                  <p className="text-[13px] font-bold text-[#1A1A1A] leading-tight">
                     {f.title}
                   </p>
 
-                  <p className="text-[9.5px] text-[#4b5563] leading-[1.35] mt-1">
+                  <p className="text-[12px] text-[#4b5563] leading-[1.35] mt-1">
                     {f.desc}
                   </p>
                 </div>
@@ -250,16 +245,16 @@ export default function Companies() {
           </div>
 
           {/* RIGHT VISION */}
-          <div className="px-7 py-8 flex flex-col items-start">
-            <div className="bg-[#f5faf7] rounded-[4px] px-5 py-5 w-full min-h-[150px]">
+          <div className="px-5 sm:px-7 py-6 sm:py-8 flex flex-col items-start md:col-span-2 lg:col-span-1 ">
+            <div className="bg-[#f5faf7] rounded-[4px] px-5 py-5 w-full min-h-[130px] sm:min-h-[150px] transition-all duration-300 group-hover:bg-[#fffaf0]">
               <div className="flex items-center gap-2 mb-3">
                 <IconEye />
-                <span className="text-[12px] font-semibold text-[#1A1A1A]">
+                <span className="text-[13px] font-semibold text-[#1A1A1A]">
                   Vision
                 </span>
               </div>
 
-              <p className="text-[11px] text-[#111827] leading-[1.65]">
+              <p className="text-[12px] text-[#111827] leading-[1.65]">
                 {c.vision}
               </p>
             </div>
@@ -268,7 +263,7 @@ export default function Companies() {
               href={`https://${c.url}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-1.5 border border-[#C8922A] text-[#C8922A] text-[10.5px] font-semibold px-3 py-1.5 rounded-[3px] hover:bg-[#C8922A] hover:text-white transition-colors"
+              className="mt-5 inline-flex items-center justify-center gap-1.5 border border-[#C8922A] text-[#C8922A] text-[13px] font-semibold px-4 py-2 rounded-[3px] transition-all duration-300 hover:bg-[#C8922A] hover:text-white hover:translate-x-1 focus:outline-none focus:ring-2 focus:ring-[#C8922A]/30"
             >
               Visit Website <ExternalLink size={10} />
             </a>

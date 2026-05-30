@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import {
   BookOpen, Globe, GraduationCap, ArrowRight,
 } from 'lucide-react';
-import bg2 from '../assets/about-bg.png';
-import sign from '../assets/Dsign.png';
-import mriLogo from "../assets/mriLogo.png";
-import rcLogo from "../assets/rc.png";
-import siareLogo from "../assets/Slogo.png";
-import elsevierLogo from "../assets/Else.png";
-import springerLogo from "../assets/spr.png";
-import ctaBg from "../assets/bg 6.png";
+import bg2 from '../assets/images/about-bg.png';
+import sign from '../assets/images/Dsign.png';
+import mriLogo from "../assets/images/mriLogo.png";
+import rcLogo from "../assets/images/rc.png";
+import siareLogo from "../assets/images/Slogo.png";
+import elsevierLogo from "../assets/images/Else.png";
+import springerLogo from "../assets/images/spr.png";
+import ctaBg from "../assets/images/bg 6.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -174,51 +174,49 @@ export default function About() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#f5f0e8] overflow-hidden" style={{ minHeight: 420 }}>
+      <section className="relative bg-[#f5f0e8] overflow-hidden min-h-[560px] lg:min-h-[420px]">
         {/* background image fills right portion */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src={bg2}
             alt=""
-            className="absolute right-0 top-0 h-full object-cover object-left"
-            style={{ width: '65%' }}
+            className="absolute right-0 top-0 h-full w-full lg:w-[65%] object-cover object-center lg:object-left opacity-25 lg:opacity-100" 
           />
           {/* left fade overlay */}
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to right, #f5f0e8 38%, #f5f0e8cc 52%, transparent 72%)',
+              background: 'linear-gradient(to right, #f5f0e8 0%, #f5f0e8e6 45%, transparent 100%)',
             }}
           />
         </div>
 
         {/* Hero text */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 pt-16 pb-52 sm:pb-56">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 pt-12 sm:pt-16 pb-8 lg:pb-52">
           <p className="text-[#C8922A] text-[11px] font-extrabold tracking-[0.18em] uppercase mb-5">
             ABOUT ME
           </p>
           <h1
-            className="font-serif text-[#161616] xl:text-[42px] lg:text-[40px] md:text-[32px] sm:text-[30px] text-[24px] leading-[1.08] font-medium tracking-[-0.4px] mb-4"
-            style={{ maxWidth: 460 }}
+            className="font-serif text-[#161616] xl:text-[42px] lg:text-[40px] md:text-[32px] sm:text-[30px] text-[24px] leading-[1.08] font-medium tracking-[-0.4px] mb-4 max-w-[460px]"
           >
             Driven by curiosity.<br />
             Guided by impact.
           </h1>
           <div className="w-10 h-0.5 bg-[#C8922A] mb-8" />
-          <p className="text-[#374151] text-[14px] leading-[1.85] font-medium" style={{ maxWidth: 440 }}>
+          <p className="text-[#374151] text-[13px] sm:text-[14px] leading-[1.85] font-medium max-w-[440px]">
             I am a researcher, educator and entrepreneur committed to advancing knowledge,
             building impactful solutions and mentoring the next generation of innovators.
           </p>
         </div>
 
         {/* Stats bar pinned to hero bottom */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 w-[65%] border-t border-[#e5ded2]">
+        <div className="relative lg:absolute lg:bottom-0 lg:left-0 lg:right-0 z-10 w-full lg:w-[65%] border-t border-[#e5ded2] bg-[#f5f0e8]/95 lg:bg-transparent">
           <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-16">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
               {stats.map((s, i) => (
                 <div
                   key={i}
-                  className={`flex flex-col items-center justify-center text-center py-8 px-4 ${i < stats.length - 1 ? 'border-r border-[#e5ded2]' : ''}`}
+                  className={`flex flex-col items-center justify-center text-center py-5 sm:py-7 lg:py-8 px-3 sm:px-4 border-[#e5ded2] ${i < stats.length - 1 ? 'sm:border-r' : ''} ${i < stats.length - 2 ? 'border-b sm:border-b-0' : ''}`}
                 >
                   <div className="flex items-center justify-center mb-3" style={{ height: 36 }}>
                     {s.icon}
@@ -261,7 +259,7 @@ export default function About() {
   <img
     src= {sign}
     alt="Dharmesh Dhabliya Signature"
-    className="h-14 w-[250px] object-contain"
+    className="h-12 sm:h-14 w-[200px] sm:w-[250px] object-contain"
   />
 </div>
               {/* Dot grid */}
@@ -299,7 +297,7 @@ export default function About() {
             <div className="bg-[#FAF8F4] rounded-xl p-7 flex flex-col justify-between border border-[#ede8de]">
               <div>
                 <div className="text-[#C8922A] font-serif leading-none" style={{ fontSize: 48 }}>"</div>
-                <p className="font-serif text-[20px] w-[200px] text-[#1A1A1A] leading-[1.7] mb-4">
+                <p className="font-serif text-[18px] sm:text-[20px] max-w-[260px] text-[#1A1A1A] leading-[1.7] mb-4">
                   I believe in the power of collaboration, curiosity and consistency to create sustainable impact.
                 </p>
               </div>
@@ -310,7 +308,7 @@ export default function About() {
               <img
               src= {sign}
               alt="Dharmesh Dhabliya Signature"
-              className="h-14 w-[230px] object-contain"
+              className="h-12 sm:h-14 w-[190px] sm:w-[230px] object-contain"
               />
               </div>
               </div>
@@ -320,7 +318,7 @@ export default function About() {
       </section>
 
       {/* ── Organizations ── */}
-      <section className="mt-16 bg-white">
+      <section className=" bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
           <div className="text-center mb-12">
             <p className="text-[#C8922A] text-[11px] font-extrabold tracking-[0.2em] uppercase mb-3">
@@ -331,7 +329,7 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {organizations.map((o, i) => (
               <motion.div
                 key={i}
@@ -377,7 +375,7 @@ export default function About() {
       </section>
 
 {/* ── Academic Roles ── */}
-<section className="py-20 bg-white">
+<section className="py-16 bg-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
     <p className="text-[#C8922A] text-[11px] font-extrabold tracking-[0.2em] uppercase mb-6">
       Academic & Professional Roles
@@ -396,13 +394,13 @@ export default function About() {
             whileHover={{
               y: -4,
             }}
-className={`group relative p-8 ${
+className={`group relative p-6 sm:p-8 border-[#e7dfd2] ${
   i !== academicRoles.length - 1
-    ? "border-r border-[#e7dfd2]"
+    ? "border-b md:border-b-0 md:border-r"
     : ""
 }`}
           >
-<div className="flex items-start gap-5">
+<div className="flex flex-col sm:flex-row items-start gap-5">
   {/* Icon */}
   <div
     className="
@@ -468,13 +466,13 @@ className={`group relative p-8 ${
       <motion.div
         whileHover={{ y: -5 }}
         transition={{ duration: 0.25 }}
-        className="group relative bg-[#FAF8F4] border border-[#ede8de] rounded-[14px] px-8 py-7 flex items-center gap-8 overflow-hidden hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+        className="group relative bg-[#FAF8F4] border border-[#ede8de] rounded-[14px] px-5 sm:px-8 py-6 sm:py-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8 overflow-hidden hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
       >
         {/* Top Hover Line */}
         <div className="absolute top-0 left-0 h-[3px] w-0 bg-[#C8922A] transition-all duration-500 group-hover:w-full" />
 
         {/* Logo */}
-        <div className="w-[110px] shrink-0 flex items-center justify-center">
+        <div className="w-[100px] sm:w-[110px] shrink-0 flex items-center justify-center">
           <img
             src={elsevierLogo}
             alt="Elsevier"
@@ -484,11 +482,11 @@ className={`group relative p-8 ${
 
         {/* Content */}
         <div>
-          <h4 className="text-[22px] font-semibold text-[#1A1A1A] mb-2 transition-colors duration-300 group-hover:text-[#C8922A]">
+          <h4 className="text-[20px] sm:text-[22px] font-semibold text-[#1A1A1A] mb-2 transition-colors duration-300 group-hover:text-[#C8922A]">
             Editor
           </h4>
 
-          <p className="text-[15px] text-[#4B5563] leading-[1.8] max-w-[320px]">
+          <p className="text-[14px] sm:text-[15px] text-[#4B5563] leading-[1.8] max-w-[320px]">
             Serving as Editor for reputed journals published by Elsevier.
           </p>
         </div>
@@ -498,13 +496,13 @@ className={`group relative p-8 ${
       <motion.div
         whileHover={{ y: -5 }}
         transition={{ duration: 0.25 }}
-        className="group relative bg-[#FAF8F4] border border-[#ede8de] rounded-[14px] px-8 py-7 flex items-center gap-8 overflow-hidden hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+        className="group relative bg-[#FAF8F4] border border-[#ede8de] rounded-[14px] px-5 sm:px-8 py-6 sm:py-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8 overflow-hidden hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
       >
         {/* Top Hover Line */}
         <div className="absolute top-0 left-0 h-[3px] w-0 bg-[#C8922A] transition-all duration-500 group-hover:w-full" />
 
         {/* Logo */}
-        <div className="w-[130px] shrink-0 flex items-center justify-center">
+        <div className="w-[110px] sm:w-[130px] shrink-0 flex items-center justify-center">
           <img
             src={springerLogo}
             alt="Springer"
@@ -514,11 +512,11 @@ className={`group relative p-8 ${
 
         {/* Content */}
         <div>
-          <h4 className="text-[22px] font-semibold text-[#1A1A1A] mb-2 transition-colors duration-300 group-hover:text-[#C8922A]">
+          <h4 className="text-[20px] sm:text-[22px] font-semibold text-[#1A1A1A] mb-2 transition-colors duration-300 group-hover:text-[#C8922A]">
             Editor
           </h4>
 
-          <p className="text-[15px] text-[#4B5563] leading-[1.8] max-w-[320px]">
+          <p className="text-[14px] sm:text-[15px] text-[#4B5563] leading-[1.8] max-w-[320px]">
             Serving as Editor for reputed journals published by Springer.
           </p>
         </div>
@@ -533,10 +531,10 @@ className={`group relative p-8 ${
     <div
       className="
         relative overflow-hidden
-        min-h-[220px]
+        min-h-[260px] sm:min-h-[220px]
         flex items-center
         group
-        py-6
+        py-8 sm:py-6
       "
       style={{
         backgroundImage: `url(${ctaBg})`,
@@ -548,8 +546,8 @@ className={`group relative p-8 ${
       <div className="absolute inset-0 bg-white/15" />
 
       {/* Content */}
-      <div className="relative z-10 pl-8 sm:pl-12 lg:pl-16 max-w-[500px]">
-        <div className="flex items-start gap-6">
+      <div className="relative z-10 px-4 sm:px-12 lg:px-16 max-w-[560px]">
+        <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-6">
           {/* Icon */}
           <div
             className="
@@ -579,7 +577,7 @@ className={`group relative p-8 ${
 
           {/* Text */}
           <div>
-            <h3 className="font-serif text-[15px] leading-[1.35] font-medium text-[#1A1A1A] mb-6">
+            <h3 className="font-serif text-[18px] sm:text-[15px] leading-[1.45] sm:leading-[1.35] font-medium text-[#1A1A1A] mb-6">
               Let's collaborate to solve real-world problems
               <br />
               and create a better tomorrow.

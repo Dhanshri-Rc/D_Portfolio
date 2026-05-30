@@ -10,8 +10,10 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
-import bg7 from "../assets/bg 7.png";
-import image from "../assets/media1.png";
+import bg7 from "../assets/images/bg 7.png";
+import image from "../assets/images/media1.png";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -139,46 +141,39 @@ const gallery = [
 export default function Media() {
   const [activeTab, setActiveTab] = useState("All Media");
 
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: true,
+  });
+
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
+
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[300px] lg:min-h-[330px] bg-[#FAF8F4] overflow-hidden">
-        <div className="absolute right-0 top-0 h-full" style={{ width: "58%" }}>
+      <section className="relative min-h-[300px] sm:min-h-[320px] lg:min-h-[330px] bg-[#FAF8F4] overflow-hidden">
+        <div className="absolute inset-0 md:left-auto md:right-0 md:top-0 md:h-full md:w-[58%]">
           <img
             src={bg7}
             alt=""
-            className="h-full w-full object-cover object-right"
+            className="h-full w-full object-cover object-right opacity-25 md:opacity-100"
           />
           <div
             className="absolute inset-0"
             style={{
-              background: `
-      linear-gradient(
-        90deg,
-        #FAF8F4 0%,
-        #FAF8F4 12%,
-        rgba(250,248,244,0.95) 24%,
-        rgba(250,248,244,0.65) 38%,
-        rgba(250,248,244,0.25) 52%,
-        transparent 68%
-      )
-    `,
+              background:
+                "linear-gradient(90deg, #FAF8F4 0%, #FAF8F4 16%, rgba(250,248,244,0.95) 30%, rgba(250,248,244,0.7) 48%, transparent 76%)",
             }}
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-[36px] lg:py-[48px]">
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-10 sm:py-12 lg:py-[48px]">
           <motion.p
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="
-text-[#C8922A]
-text-[11px]
-font-extrabold
-tracking-[0.18em]
-uppercase
-mb-5
-"
+            className="text-[#C8922A] text-[10px] sm:text-[11px] font-extrabold tracking-[0.18em] uppercase mb-4 sm:mb-5"
           >
             In The Media
           </motion.p>
@@ -187,7 +182,7 @@ mb-5
             animate="visible"
             custom={1}
             variants={fadeUp}
-            className="font-serif text-[#161616] xl:text-[42px] lg:text-[40px] md:text-[32px] sm:text-[30px] text-[24px] font-medium leading-[1.08] tracking-[-0.5px] mb-4"
+            className="font-serif text-[#161616] text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] xl:text-[42px] font-medium leading-[1.08] tracking-[-0.5px] mb-4"
           >
             Sharing Ideas.
             <br />
@@ -199,13 +194,7 @@ mb-5
             animate="visible"
             custom={2}
             variants={fadeUp}
-            className="
-text-[#374151]
-text-[14px]
-leading-[1.9]
-font-medium
-max-w-[430px]
-"
+            className="text-[#374151] text-[13.5px] sm:text-[14px] leading-[1.8] sm:leading-[1.9] font-medium max-w-[430px]"
           >
             Explore my interviews, talks, features, and press coverage across
             various platforms where I share insights on research, innovation,
@@ -215,88 +204,59 @@ max-w-[430px]
       </section>
 
       {/* Tabs */}
-      <section className="bg-white border-b border-[#e8e4dd] sticky top-16 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between overflow-x-auto no-scrollbar">
-            {tabs.map((tab) => (
-              <button
-                key={tab.label}
-                onClick={() => setActiveTab(tab.label)}
-                className={`
-            relative
-            min-w-[135px]
-            h-[74px]
-            px-4
-            pt-3
-            pb-2
-
-            flex
-            flex-col
-            items-center
-            justify-center
-            gap-2
-
-            text-[12px]
-            font-semibold
-            whitespace-nowrap
-
-            transition-all duration-300
-
-            ${
-              activeTab === tab.label
-                ? ""
-                : "text-[#374151] hover:text-[#C8922A] "
-            }
-          `}
-              >
-                <span
-                  className={`
-              flex items-center justify-center
-              transition-all duration-300
-
-              ${
-                activeTab === tab.label
-                  ? "text-[#C8922A] scale-110"
-                  : "text-[#4B5563]"
-              }
-
-              [&_svg]:w-[24px]
-              [&_svg]:h-[24px]
-              [&_svg]:stroke-[1.7]
-            `}
+      <section className="hidden md:block bg-white border-b border-[#e8e4dd] sticky top-16 z-30">
+        <div className="w-full">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="flex items-stretch justify-between overflow-x-auto no-scrollbar scroll-smooth">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.label}
+                  onClick={() => setActiveTab(tab.label)}
+                  className={`relative flex-1 shrink-0 min-w-[105px] sm:min-w-[135px] h-[62px] sm:h-[74px] px-3 sm:px-4 pt-2 pb-2 flex flex-col items-center justify-center gap-1.5 sm:gap-2 text-[11px] sm:text-[12px] font-semibold whitespace-nowrap transition-all duration-300 hover:bg-[#FAF8F4] ${
+                    activeTab === tab.label
+                      ? "text-[#C8922A]"
+                      : "text-[#374151] hover:text-[#C8922A]"
+                  }`}
                 >
-                  {tab.icon}
-                </span>
+                  <span
+                    className={`flex items-center justify-center transition-all duration-300 ${
+                      activeTab === tab.label
+                        ? "text-[#C8922A] scale-110"
+                        : "text-[#4B5563]"
+                    } [&_svg]:w-[18px] [&_svg]:h-[18px] sm:[&_svg]:w-[24px] sm:[&_svg]:h-[24px] [&_svg]:stroke-[1.7]`}
+                  >
+                    {tab.icon}
+                  </span>
 
-                <span>{tab.label}</span>
+                  <span>{tab.label}</span>
 
-                {/* {activeTab === tab.label && (
-            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[105px] h-[2px] bg-[#C8922A]" />
-          )} */}
-              </button>
-            ))}
+                  {activeTab === tab.label && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70px] sm:w-[105px] h-[2px] bg-[#C8922A]" />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+      <section className="py-10 sm:py-12 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-14">
           {/* Featured Media */}
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between gap-4 mb-4">
               <h2 className="font-serif text-[21px] font-medium text-[#1A1A1A]">
                 Featured Media
               </h2>
-
               <a
                 href="#"
-                className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+                className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all shrink-0"
               >
                 View All <ArrowRight size={12} />
               </a>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {featured.map((item, i) => (
                 <motion.div
                   key={i}
@@ -305,81 +265,35 @@ max-w-[430px]
                   viewport={{ once: true }}
                   custom={i * 0.08}
                   variants={fadeUp}
-                  className="
-          bg-white
-          rounded-[6px]
-          overflow-hidden
-          border border-[#e8e3dc]
-          shadow-[0_2px_8px_rgba(0,0,0,0.04)]
-          hover:shadow-[0_8px_22px_rgba(200,146,42,0.14)]
-          transition-all duration-300
-          cursor-pointer
-          group
-        "
+                  className="bg-white rounded-[6px] overflow-hidden border border-[#e8e3dc] shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_22px_rgba(200,146,42,0.14)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group"
                 >
-                  <div className="relative h-[145px] overflow-hidden">
+                  <div className="relative h-[160px] sm:h-[145px] overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="
-              w-full
-              h-full
-              object-cover
-              transition-transform duration-500
-              group-hover:scale-105
-            "
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-
-                    <span
-                      className="
-              absolute
-              left-3
-              bottom-3
-              bg-white/85
-              text-[#374151]
-              text-[10px]
-              font-semibold
-              px-2
-              py-[3px]
-              rounded-[2px]
-            "
-                    >
+                    <span className="absolute left-3 bottom-3 bg-white/85 text-[#374151] text-[10px] font-semibold px-2 py-[3px] rounded-[2px]">
                       {item.type}
                     </span>
                   </div>
-
                   <div className="px-4 pt-3 pb-4">
                     <p className="text-[11px] text-[#8a8f98] mb-2">
                       {item.date}
                     </p>
-
-                    <h4
-                      className="
-              text-[14px]
-              font-serif
-              font-medium
-              text-[#1A1A1A]
-              leading-[1.35]
-              min-h-[58px]
-              mb-3
-              group-hover:text-[#C8922A]
-              transition-colors
-            "
-                    >
+                    <h4 className="text-[14px] font-serif font-medium text-[#1A1A1A] leading-[1.35] sm:min-h-[58px] mb-3 group-hover:text-[#C8922A] transition-colors">
                       {item.title}
                     </h4>
-
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-3">
                       <span
                         className="text-[11px] font-semibold"
                         style={{ color: item.sourceColor }}
                       >
                         {item.source}
                       </span>
-
                       <ExternalLink
                         size={13}
-                        className="text-[#6B7280] group-hover:text-[#C8922A] transition-colors"
+                        className="text-[#6B7280] group-hover:text-[#C8922A] transition-colors shrink-0"
                       />
                     </div>
                   </div>
@@ -390,9 +304,78 @@ max-w-[430px]
 
           {/* Latest Media */}
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between gap-4 mb-4">
               <h2 className="font-serif text-[22px] font-medium text-[#1A1A1A]">
                 Latest Media
+              </h2>
+              <a
+                href="#"
+                className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all shrink-0"
+              >
+                View All <ArrowRight size={12} />
+              </a>
+            </div>
+
+            <div className="space-y-3 lg:space-y-0">
+              {latest.map((item, i) => {
+                const color = typeColors[item.type] || typeColors.Talk;
+                return (
+                  <motion.div
+                    key={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    custom={i * 0.07}
+                    variants={fadeUp}
+                    className="group grid grid-cols-1 sm:grid-cols-[145px_1fr] lg:grid-cols-[170px_1fr_90px_120px_24px] gap-3 sm:gap-5 lg:items-center p-3 sm:px-0 sm:py-3 rounded-[6px] sm:rounded-none border border-[#e8e4dd] sm:border-x-0 sm:border-t-0 bg-white hover:bg-[#FAF8F4]/60 transition-all duration-300"
+                  >
+                    <div className="w-full sm:w-[145px] lg:w-[150px] h-[150px] sm:h-[70px] rounded-[5px] overflow-hidden bg-gray-100">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="min-w-0">
+                      <h4 className="font-serif text-[15px] font-medium text-[#1A1A1A] leading-[1.35] mb-1 group-hover:text-[#C8922A] transition-colors">
+                        {item.title}
+                      </h4>
+                      <p className="text-[12.5px] text-[#374151] leading-[1.55] max-w-[560px]">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-1 lg:block">
+                      <span
+                        className={`inline-flex items-center justify-center text-[11px] font-medium px-4 py-[4px] rounded-[5px] text-center ${color.bg} ${color.text}`}
+                      >
+                        {item.type}
+                      </span>
+                      <span className="text-[12px] text-[#374151] lg:hidden">
+                        {item.date}
+                      </span>
+                    </div>
+
+                    <span className="hidden lg:block text-[12px] text-[#374151]">
+                      {item.date}
+                    </span>
+
+                    <ExternalLink
+                      size={14}
+                      className="hidden lg:block text-[#4B5563] group-hover:text-[#C8922A] cursor-pointer transition-colors"
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Media Gallery */}
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-serif text-[24px] font-medium text-[#1A1A1A]">
+                Media Gallery
               </h2>
 
               <a
@@ -403,175 +386,76 @@ max-w-[430px]
               </a>
             </div>
 
-            <div className="space-y-0">
-              {latest.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i * 0.07}
-                  variants={fadeUp}
-                  className="
-          grid
-          grid-cols-[170px_1fr_90px_120px_24px]
-          gap-5
-          items-center
-          py-3
-          border-b border-[#e8e4dd]
-        "
-                >
-                  <div className="w-[150px] h-[70px] rounded-[5px] overflow-hidden bg-gray-100">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+            <div className="relative">
+              {/* Prev */}
+              <button
+                onClick={scrollPrev}
+                className="
+      absolute left-0 top-1/2 -translate-y-1/2 z-20
+      w-10 h-10 rounded-full
+      bg-white shadow-lg
+      flex items-center justify-center
+      hover:bg-[#FAF8F4]
+      transition-all
+    "
+              >
+                <ChevronLeft size={18} />
+              </button>
 
-                  <div className="min-w-0">
-                    <h4 className="font-serif text-[15px] font-medium text-[#1A1A1A] leading-[1.35] mb-1">
-                      {item.title}
-                    </h4>
+              {/* Carousel */}
+              <div className="overflow-hidden mx-12" ref={emblaRef}>
+                <div className="flex">
+                  {gallery.map((item, i) => (
+                    <div
+                      key={i}
+                      className="
+            flex-[0_0_100%]
+            sm:flex-[0_0_50%]
+            lg:flex-[0_0_25%]
+            px-2
+          "
+                    >
+                      <div
+                        className="
+              h-[150px]
+              rounded-lg
+              overflow-hidden
+              shadow-[0_3px_10px_rgba(0,0,0,0.08)]
+              cursor-pointer
+              group
+            "
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          className="
+                w-full h-full object-cover
+                transition-transform duration-500
+                group-hover:scale-105
+              "
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-                    <p className="text-[12.5px] text-[#374151] leading-[1.55] max-w-[560px]">
-                      {item.desc}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`
-            text-[11px]
-            font-medium
-            px-4
-            py-[4px]
-            rounded-[5px]
-            text-center
-            ${(typeColors[item.type] || typeColors.Talk).bg}
-            ${(typeColors[item.type] || typeColors.Talk).text}
-          `}
-                  >
-                    {item.type}
-                  </span>
-
-                  <span className="text-[12px] text-[#374151]">
-                    {item.date}
-                  </span>
-
-                  <ExternalLink
-                    size={14}
-                    className="text-[#4B5563] hover:text-[#C8922A] cursor-pointer"
-                  />
-                </motion.div>
-              ))}
+              {/* Next */}
+              <button
+                onClick={scrollNext}
+                className="
+      absolute right-0 top-1/2 -translate-y-1/2 z-20
+      w-10 h-10 rounded-full
+      bg-white shadow-lg
+      flex items-center justify-center
+      hover:bg-[#FAF8F4]
+      transition-all
+    "
+              >
+                <ChevronRight size={18} />
+              </button>
             </div>
           </div>
-
-{/* Media Gallery */}
-<div>
-  <div className="flex items-center justify-between mb-5">
-    <h2 className="font-serif text-[24px] font-medium text-[#1A1A1A]">
-      Media Gallery
-    </h2>
-
-    <a
-      href="#"
-      className="text-[#C8922A] text-[12px] font-semibold flex items-center gap-1 hover:gap-2 transition-all"
-    >
-      View All <ArrowRight size={12} />
-    </a>
-  </div>
-
-  <div className="relative">
-    {/* Left Arrow */}
-    <button
-      type="button"
-      className="
-        absolute
-        left-[-24px]
-        top-1/2
-        -translate-y-1/2
-        z-10
-
-        w-[42px]
-        h-[42px]
-        rounded-full
-
-        bg-white
-        shadow-[0_4px_16px_rgba(0,0,0,0.14)]
-
-        flex
-        items-center
-        justify-center
-
-        text-[#6B7280]
-        hover:text-[#C8922A]
-        transition-all
-      "
-    >
-      ‹
-    </button>
-
-    <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
-      {gallery.map((item, i) => (
-        <div
-          key={i}
-          className="
-            w-[220px]
-            h-[130px]
-            rounded-[6px]
-            flex-shrink-0
-            overflow-hidden
-            bg-gray-100
-            cursor-pointer
-            shadow-[0_3px_10px_rgba(0,0,0,0.08)]
-            hover:scale-[1.02]
-            transition-transform
-          "
-        >
-          <img
-            src={item.image}
-            alt={item.alt || `Gallery ${i + 1}`}
-            className="
-              w-full
-              h-full
-              object-cover
-            "
-          />
-        </div>
-      ))}
-    </div>
-
-    {/* Right Arrow */}
-    <button
-      type="button"
-      className="
-        absolute
-        right-[-24px]
-        top-1/2
-        -translate-y-1/2
-        z-10
-
-        w-[42px]
-        h-[42px]
-        rounded-full
-
-        bg-white
-        shadow-[0_4px_16px_rgba(0,0,0,0.14)]
-
-        flex
-        items-center
-        justify-center
-
-        text-[#6B7280]
-        hover:text-[#C8922A]
-        transition-all
-      "
-    >
-      ›
-    </button>
-  </div>
-</div>
         </div>
       </section>
     </>
